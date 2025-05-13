@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Feel Better App</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f8ff;
+      text-align: center;
+      padding: 30px;
+    }
+
+    .box {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      display: inline-block;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      margin-top: 20px;
+    }
+
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      border: none;
+      background-color: #6200ea;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #3700b3;
+    }
+
+    .emoji {
+      font-size: 30px;
+      display: inline-block;
+      margin: 5px;
+    }
+
+    .angel-img {
+      max-width: 200px;
+      margin-top: 20px;
+    }
+
+    iframe {
+      margin-top: 20px;
+      width: 300px;
+      height: 200px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>👑 Hello Queen</h1>
+  <div class="box" id="interactionBox">
+    <p>What's your full name?</p>
+    <input type="text" id="nameInput" placeholder="Enter your name" />
+    <br/><br/>
+    <button onclick="askFeeling()">Continue</button>
+  </div>
+
+  <script>
+    function askFeeling() {
+      const name = document.getElementById('nameInput').value.trim();
+      if (!name) {
+        alert('Please enter your name first.');
+        return;
+      }
+
+      const box = document.getElementById('interactionBox');
+      box.innerHTML = `
+        <p>Hi ${name} 😊 How are you feeling today?</p>
+        <button onclick="handleFeeling('good')">Good</button>
+        <button onclick="handleFeeling('bad')">Bad</button>
+      `;
+    }
+
+    function handleFeeling(feeling) {
+      const box = document.getElementById('interactionBox');
+      if (feeling === 'good') {
+        box.innerHTML = `
+          <p>That's great! Would you like me to make it even better? 💖</p>
+          <button onclick="makeBetter(true)">Yes</button>
+          <button onclick="makeBetter(false)">No</button>
+        `;
+      } else {
+        box.innerHTML = `
+          <p>Hey queen, I wish I could be there to hold you in my arms... maybe it could help. But since I am not there, I send you this little angel to be with you. 👼</p>
+          <img src="https://i.ibb.co/DkSpX4D/cute-angel.png" alt="Angel" class="angel-img" />
+          ${playMusic()}
+        `;
+      }
+    }
+
+    function makeBetter(wantsBetter) {
+      const box = document.getElementById('interactionBox');
+      if (wantsBetter) {
+        box.innerHTML = `
+          <p>Here's something to make your day even brighter! 💃🎵</p>
+          ${playMusic()}
+        `;
+      } else {
+        let emojis = '';
+        for (let i = 0; i < 30; i++) {
+          emojis += '<span class="emoji">😊</span>';
+        }
+        box.innerHTML = `
+          <p>Your smile is already perfect! Keep glowing queen! ✨</p>
+          <div>${emojis}</div>
+        `;
+      }
+    }
+
+   function playMusic() {
+  return `
+    <iframe 
+      src="https://www.youtube.com/embed/p9mb533OhQE?autoplay=1" 
+      frameborder="0" 
+      allow="autoplay; encrypted-media" 
+      allowfullscreen>
+    </iframe>
+  `;
+}
+
+    
+  </script>
+
+</body>
+</html>
